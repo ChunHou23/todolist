@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{ base :: base_head }"></head>
+
+<body th:replace="~{ base :: base_layout(
+            ~{create-task :: side-content},
+            ~{create-task :: main-content}
+        ) }">
+
+<div th:fragment="side-content" class="row">
+    <ul>
+        <li th:each="config : ${account_config_list}" class="side-list-item">
+            <a href="#!" th:text="${config.name}"></a>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="main-content">
+    Create Task Here
+
+    <form id="taskForm" action="#" method="post" class="" novalidate>
+        <div class="form-group mt-3">
+            <label for="task_name">Task Name</label>
+            <input class="form-control"
+                type="text" name="task_name" id="task_name"
+                required autocomplete="off">
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Task Priority</label>
+            <input class="form-control"
+                   type="text" name="priority" id="priority"
+                   required autocomplete="off">
+        </div>
+        <div class="clearfix"></div>
+    </form>
+
+    <hr>
+    <button type="button" class="btn btn-dark w-50" onclick=createTask()>Add New Task</button>
+</div>
+
+</body>
+</html>

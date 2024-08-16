@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{ base :: base_head }"></head>
+
+<body th:replace="~{ base :: base_layout(
+            ~{home :: side-content},
+            ~{home :: main-content}
+        ) }">
+
+<div th:fragment="side-content" class="row">
+    <ul>
+        <li th:each="config : ${account_config_list}" class="side-list-item">
+            <a href="#!" th:text="${config.name}"></a>
+        </li>
+    </ul>
+</div>
+
+<div th:fragment="main-content">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>No.</th>
+            <th>Task Name</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Created Date</th>
+            <th>Last Updated</th>
+        </tr>
+
+        <tr th:if="${#lists.isEmpty(task_list)}">
+            <td class="text-center" colspan="6">No Tasks Record</td>
+        </tr>
+
+        <tr th:each="task, iterStat : ${task_list}" th:unless="${#lists.isEmpty(task_list)}" class="text-center">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${task.name}"></td>
+            <td th:text="${task.priority}"></td>
+            <td th:text="${task.status}"></td>
+            <td th:text="${task.createdAt}"></td>
+            <td th:text="${task.updatedAt}"></td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-dark w-50" onclick=addNewTask()>Add New Task</button>
+    </div>
+</div>
+
+</body>
+</html>
