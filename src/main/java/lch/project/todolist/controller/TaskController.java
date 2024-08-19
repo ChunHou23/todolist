@@ -1,6 +1,7 @@
 package lch.project.todolist.controller;
 
 import lch.project.todolist.model.Dto.In.TaskInDTO;
+import lch.project.todolist.model.Dto.Out.JsonResponse;
 import lch.project.todolist.model.Dto.Out.TaskOutDTO;
 import lch.project.todolist.model.Task;
 import lch.project.todolist.service.TaskService;
@@ -19,7 +20,7 @@ public class TaskController {
     private TaskService taskService;
 
     @PostMapping("/add")
-    public TaskOutDTO addNewTask(@RequestBody TaskInDTO taskInDTO) {
+    public JsonResponse addNewTask(@RequestBody TaskInDTO taskInDTO) {
         Task task = new Task();
         task.setName(taskInDTO.getTaskName());
         task.setPriority(taskInDTO.getPriority());
@@ -39,6 +40,10 @@ public class TaskController {
         taskOutDTO.setCreatedAt(newTask.getCreatedAt());
         taskOutDTO.setUpdatedAt(newTask.getUpdatedAt());
 
-        return taskOutDTO;
+        JsonResponse jsonResponse = new JsonResponse();
+        jsonResponse.setOk(true);
+        jsonResponse.setMessage("");
+        jsonResponse.setData(taskOutDTO);
+        return jsonResponse;
     }
 }

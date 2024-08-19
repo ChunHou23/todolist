@@ -27,13 +27,13 @@ public class UserBusiness {
     @Autowired
     private TaskService taskService;
 
-    public UserInformationOutDTO getMockUserInformation(Long userId) {
+    public UserInformationOutDTO getMockUserInformation(Long userId, Integer pageCode) {
         UserInformationOutDTO userInformationOutDTO = new UserInformationOutDTO();
 
         UserOutDTO userInfo = getUserInfo(1L);
         AccountNatureOutDTO userAccountNatureInfo = getAccountNatureInfo(userInfo.getAccountNatureId());
         List<AccountConfigOutDTO> userAccountConfigInfo = getAccountConfigInfo(userInfo.getAccountNatureId());
-        List<TaskOutDTO> userTaskInfo = getTaskInfo(userInfo.getId());
+        List<TaskOutDTO> userTaskInfo = getTaskInfo(userInfo.getId(), pageCode);
 
         userInformationOutDTO.setUserInfo(userInfo);
         userInformationOutDTO.setAccountNatureInfo(userAccountNatureInfo);
@@ -89,8 +89,8 @@ public class UserBusiness {
         return accountConfigOutDTOList;
     }
 
-    private List<TaskOutDTO> getTaskInfo(Long userId) {
-        List<Task> taskList = taskService.getTaskByUserId(userId);
+    private List<TaskOutDTO> getTaskInfo(Long userId, Integer pageCode) {
+        List<Task> taskList = taskService.getTaskByUserIdAndTaskStatus(userId, pageCode);
         List<TaskOutDTO> taskOutDTOList = new ArrayList<>();
 
         for (Task task : taskList) {

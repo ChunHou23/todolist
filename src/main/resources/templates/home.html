@@ -9,8 +9,8 @@
 
 <div th:fragment="side-content" class="row">
     <ul>
-        <li th:each="config : ${account_config_list}" class="side-list-item">
-            <a href="#!" th:text="${config.name}"></a>
+        <li th:each="config : ${account_config_list}">
+            <button class="btn btn-outline-dark" th:text="${config.name}" th:attr="onclick=${'navigateTaskPage(' + config.id + ')'}"></button>
         </li>
     </ul>
 </div>

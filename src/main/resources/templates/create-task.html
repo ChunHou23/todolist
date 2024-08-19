@@ -9,14 +9,14 @@
 
 <div th:fragment="side-content" class="row">
     <ul>
-        <li th:each="config : ${account_config_list}" class="side-list-item">
-            <a href="#!" th:text="${config.name}"></a>
+        <li th:each="config : ${account_config_list}">
+            <button class="btn btn-outline-dark" th:text="${config.name}"></button>
         </li>
     </ul>
 </div>
 
 <div th:fragment="main-content">
-    Create Task Here
+    <h4>New Task</h4>
 
     <form id="taskForm" action="#" method="post" class="" novalidate>
         <div class="form-group mt-3">
@@ -36,7 +36,9 @@
     </form>
 
     <hr>
-    <button type="button" class="btn btn-dark w-50" onclick=createTask()>Add New Task</button>
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-dark w-50" onclick=createTask()>Add New Task</button>
+    </div>
 </div>
 
 </body>
